@@ -13,7 +13,7 @@ import streamlit as st
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Gmail credentials (use environment variables for security)
-gmail_user = os.getenv("GMAIL_USER", "kinelyaydenseo19@gmail.com")
+gmail_user = os.getenv("GMAIL_USER", "mohsin.razzaq2025@gmail.com")
 gmail_password = os.getenv("GMAIL_PASSWORD")
 
 # Website URL
@@ -112,24 +112,75 @@ def chatbot_ui(user_input, user_name, user_email):
     response = generate_answer(user_input, combined_context)
     return response
 
+# # Streamlit UI
+# def create_chatbot_interface():
+#     st.title("Aibytec Assistant")
+
+#     # User input fields for name and email
+#     user_name = st.text_input("Your Name", placeholder="Enter your name here")
+#     user_email = st.text_input("Your Email", placeholder="Enter your email address")
+
+#     # User input for chat
+#     user_query = st.text_area("Ask me anything about Aibytec", placeholder="Enter your question here")
+
+#     # Button to submit the query
+#     if st.button("Submit"):
+#         if user_name and user_email and user_query:
+#             response = chatbot_ui(user_query, user_name, user_email)
+#             st.write(f"**Assistant:** {response}")
+#         else:
+#             st.warning("Please provide your name, email, and a question.")
+import streamlit as st
+
+# Simulated chatbot logic (replace with your actual function)
+def chatbot_ui(user_input, user_name, user_email, chat_history):
+    response = f"Hello {user_name}, you asked: '{user_input}'. This is a placeholder response."
+    chat_history.append({"user": user_input, "bot": response})
+    return chat_history
+
 # Streamlit UI
 def create_chatbot_interface():
-    st.title("Aibytec Assistant")
+    # Page title and description
+    st.set_page_config(page_title="Aibytec Assistant", layout="wide")
+    st.title("🤖 Aibytec Assistant")
+    st.markdown("Welcome to the Aibytec Assistant! Ask me anything about the Aibytec website or related PDFs.")
 
-    # User input fields for name and email
-    user_name = st.text_input("Your Name", placeholder="Enter your name here")
-    user_email = st.text_input("Your Email", placeholder="Enter your email address")
+    # Sidebar for user details
+    st.sidebar.header("User Details")
+    user_name = st.sidebar.text_input("Your Name", placeholder="Enter your name")
+    user_email = st.sidebar.text_input("Your Email", placeholder="Enter your email")
+
+    # Chat history
+    if "chat_history" not in st.session_state:
+        st.session_state["chat_history"] = []
+
+    st.subheader("Chat Interface")
+    with st.container():
+        # Display chat history
+        for message in st.session_state["chat_history"]:
+            st.markdown(f"**You:** {message['user']}")
+            st.markdown(f"**Assistant:** {message['bot']}")
 
     # User input for chat
-    user_query = st.text_area("Ask me anything about Aibytec", placeholder="Enter your question here")
+    user_query = st.text_input("Type your question below", placeholder="Enter your question here")
 
-    # Button to submit the query
-    if st.button("Submit"):
-        if user_name and user_email and user_query:
-            response = chatbot_ui(user_query, user_name, user_email)
-            st.write(f"**Assistant:** {response}")
-        else:
-            st.warning("Please provide your name, email, and a question.")
+    # Submit and Reset Buttons
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("Submit"):
+            if user_name and user_email and user_query:
+                st.session_state["chat_history"] = chatbot_ui(
+                    user_query, user_name, user_email, st.session_state["chat_history"]
+                )
+                st.experimental_rerun()  # Refresh to show updated chat
+            else:
+                st.warning("Please fill in all fields (Name, Email, and Question).")
 
+    with col2:
+        if st.button("Reset Chat"):
+            st.session_state["chat_history"] = []
+            st.experimental_rerun()
+
+# Run the Streamlit app
 if __name__ == "__main__":
     create_chatbot_interface()
