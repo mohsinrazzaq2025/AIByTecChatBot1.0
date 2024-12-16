@@ -269,7 +269,13 @@ def create_chatbot_interface():
             bot_response = chatbot_ui(user_query, user_name, user_email)
             st.session_state["chat_history"].append({"user": user_query, "bot": bot_response})
         else:
-            st.warning("Please fill in your name, email, and quer
+            st.warning("Please fill in your name, email, and query.")
+
+    # Reset Button
+    if st.button("Reset Chat"):
+        # Clear chat history and rerun app
+        st.session_state.clear()
+        st.experimental_rerun()
 
 # Run the Streamlit app
 if __name__ == "__main__":
