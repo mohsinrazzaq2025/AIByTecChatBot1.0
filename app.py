@@ -130,14 +130,6 @@ def chatbot_ui(user_input, user_name, user_email):
 #             st.write(f"**Assistant:** {response}")
 #         else:
 #             st.warning("Please provide your name, email, and a question.")
-import streamlit as st
-
-# Simulated chatbot logic (replace with your actual function)
-def chatbot_ui(user_input, user_name, user_email, chat_history):
-    response = f"Hello {user_name}, you asked: '{user_input}'. This is a placeholder response."
-    chat_history.append({"user": user_input, "bot": response})
-    return chat_history
-
 # Streamlit UI
 def create_chatbot_interface():
     # Page title and description
@@ -164,22 +156,20 @@ def create_chatbot_interface():
     # User input for chat
     user_query = st.text_input("Type your question below", placeholder="Enter your question here")
 
-    # Submit and Reset Buttons
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        if st.button("Submit"):
-            if user_name and user_email and user_query:
-                st.session_state["chat_history"] = chatbot_ui(
-                    user_query, user_name, user_email, st.session_state["chat_history"]
-                )
-                st.experimental_rerun()  # Refresh to show updated chat
-            else:
-                st.warning("Please fill in all fields (Name, Email, and Question).")
+    # Submit Button
+    if st.button("Submit"):
+        if user_name and user_email and user_query:
+            # Update chat history directly
+            st.session_state["chat_history"].append({
+                "user": user_query,
+                "bot": f"Hello {user_name}, you asked: '{user_query}'. This is a placeholder response."
+            })
+        else:
+            st.warning("Please fill in all fields (Name, Email, and Question).")
 
-    with col2:
-        if st.button("Reset Chat"):
-            st.session_state["chat_history"] = []
-            st.experimental_rerun()
+    # Reset Chat Button
+    if st.button("Reset Chat"):
+        st.session_state["chat_history"] = []
 
 # Run the Streamlit app
 if __name__ == "__main__":
