@@ -255,7 +255,6 @@
 
 
 # 2 page display
-
 import openai
 import requests
 from bs4 import BeautifulSoup
@@ -297,7 +296,7 @@ def extract_text_from_pdf(pdf_path):
         return ""
 
 # Combine the website text and PDF text
-pdf_text = extract_text_from_pdf("Aibytec fine tuned data.pdf") # Update this path
+pdf_text = extract_text_from_pdf("Aibytec fine tuned data.pdf")  # Update this path
 combined_context = website_text + "\n\n" + pdf_text  # Combine website and PDF data
 
 # Function to send email notification
@@ -391,12 +390,12 @@ def create_chatbot_interface():
                 st.session_state.user_email = user_email
                 send_email(user_name, user_email)  # Send email
                 st.success("Thank you! Your information has been submitted.")
-                st.experimental_rerun()
+                st.session_state.page = "chatbot"  # Mark that the user is ready for the chatbot
             else:
                 st.warning("Please provide your name and email.")
     
     # Step 2: Chatbot Interface
-    else:
+    if st.session_state.get("page") == "chatbot":
         st.title("Step 2: Chat with Aibytec Assistant")
         st.markdown("Ask me anything about Aibytec!")
 
@@ -424,3 +423,4 @@ def create_chatbot_interface():
 # Run the Streamlit app
 if __name__ == "__main__":
     create_chatbot_interface()
+
