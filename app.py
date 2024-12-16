@@ -193,7 +193,7 @@ def chatbot_ui(user_input, user_name, user_email):
 #     if st.button("Reset Chat"):
 #         st.session_state["chat_history"] = []
 
-2
+# 2
 def create_chatbot_interface():
     # Page setup
     st.set_page_config(page_title="Aibytec Assistant", layout="wide")
