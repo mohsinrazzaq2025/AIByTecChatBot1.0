@@ -112,60 +112,60 @@ def chatbot_ui(user_input, user_name, user_email):
     response = generate_answer(user_input, combined_context)
     return response
 
-# Streamlit UI
-def create_chatbot_interface():
-    st.title("Aibytec Assistant")
-
-    # User input fields for name and email
-    user_name = st.text_input("Your Name", placeholder="Enter your name here")
-    user_email = st.text_input("Your Email", placeholder="Enter your email address")
-
-    # User input for chat
-    user_query = st.text_area("Ask me anything about Aibytec", placeholder="Enter your question here")
-
-    # Button to submit the query
-    if st.button("Submit"):
-        if user_name and user_email and user_query:
-            response = chatbot_ui(user_query, user_name, user_email)
-            st.write(f"**Assistant:** {response}")
-        else:
-            st.warning("Please provide your name, email, and a question.")
 # # Streamlit UI
 # def create_chatbot_interface():
-#     # Page setup
-#     st.set_page_config(page_title="Aibytec Assistant", layout="wide")
-#     st.title("🤖 Aibytec Assistant")
-#     st.markdown("Ask me anything about Aibytec!")
+#     st.title("Aibytec Assistant")
 
-#     # Sidebar for user details
-#     user_name = st.sidebar.text_input("Your Name", placeholder="Enter your name")
-#     user_email = st.sidebar.text_input("Your Email", placeholder="Enter your email")
+#     # User input fields for name and email
+#     user_name = st.text_input("Your Name", placeholder="Enter your name here")
+#     user_email = st.text_input("Your Email", placeholder="Enter your email address")
 
-#     # Chat history initialization
-#     if "chat_history" not in st.session_state:
-#         st.session_state["chat_history"] = []
+#     # User input for chat
+#     user_query = st.text_area("Ask me anything about Aibytec", placeholder="Enter your question here")
 
-#     # Display chat history
-#     st.subheader("Chat Interface")
-#     for chat in st.session_state["chat_history"]:
-#         st.markdown(f"**You:** {chat['user']}")
-#         st.markdown(f"**Assistant:** {chat['bot']}")
-
-#     # User input
-#     user_query = st.text_area("Type your question below", placeholder="Ask your question...")
-
-#     # Submit Button
+#     # Button to submit the query
 #     if st.button("Submit"):
 #         if user_name and user_email and user_query:
-#             # Simulate bot response for now
-#             bot_response = f"Hello {user_name}, this is a placeholder response to: '{user_query}'"
-#             st.session_state["chat_history"].append({"user": user_query, "bot": bot_response})
+#             response = chatbot_ui(user_query, user_name, user_email)
+#             st.write(f"**Assistant:** {response}")
 #         else:
-#             st.warning("Please fill in your name, email, and query.")
+#             st.warning("Please provide your name, email, and a question.")
+# Streamlit UI
+def create_chatbot_interface():
+    # Page setup
+    st.set_page_config(page_title="Aibytec Assistant", layout="wide")
+    st.title("🤖 Aibytec Assistant")
+    st.markdown("Ask me anything about Aibytec!")
 
-#     # Reset Button
-#     if st.button("Reset Chat"):
-#         st.session_state["chat_history"] = []
+    # Sidebar for user details
+    user_name = st.sidebar.text_input("Your Name", placeholder="Enter your name")
+    user_email = st.sidebar.text_input("Your Email", placeholder="Enter your email")
+
+    # Chat history initialization
+    if "chat_history" not in st.session_state:
+        st.session_state["chat_history"] = []
+
+    # Display chat history
+    st.subheader("Chat Interface")
+    for chat in st.session_state["chat_history"]:
+        st.markdown(f"**You:** {chat['user']}")
+        st.markdown(f"**Assistant:** {chat['bot']}")
+
+    # User input
+    user_query = st.text_area("Type your question below", placeholder="Ask your question...")
+
+    # Submit Button
+    if st.button("Submit"):
+        if user_name and user_email and user_query:
+            # Simulate bot response for now
+            bot_response = chatbot_ui(user_query, user_name, user_email) #f"Hello {user_name}, this is a placeholder response to: '{user_query}'"
+            st.session_state["chat_history"].append({"user": user_query, "bot": bot_response})
+        else:
+            st.warning("Please fill in your name, email, and query.")
+
+    # Reset Button
+    if st.button("Reset Chat"):
+        st.session_state["chat_history"] = []
 
 # Run the Streamlit app
 if __name__ == "__main__":
