@@ -193,55 +193,7 @@ def chatbot_ui(user_input, user_name, user_email):
 #     if st.button("Reset Chat"):
 #         st.session_state["chat_history"] = []
 
-# 2
-# def create_chatbot_interface():
-#     # Page setup
-#     st.set_page_config(page_title="Aibytec Assistant", layout="wide")
-#     st.title("🤖 Aibytec Assistant")
-#     st.markdown("Ask me anything about Aibytec!")
-
-#     # Sidebar for user details
-#     user_name = st.sidebar.text_input("Your Name", placeholder="Enter your name")
-#     user_email = st.sidebar.text_input("Your Email", placeholder="Enter your email")
-
-#     # Chat history initialization
-#     if "chat_history" not in st.session_state:
-#         st.session_state["chat_history"] = []
-
-#     # User input
-#     user_query = st.text_area("Type your question below", placeholder="Ask your question...")
-
-#     # Submit Button
-#     if st.button("Submit"):
-#         if user_name and user_email and user_query:
-#             # Get chatbot response
-#             bot_response = chatbot_ui(user_query, user_name, user_email)
-            
-#             # Update chat history in session state
-#             st.session_state["chat_history"].append({"user": user_query, "bot": bot_response})
-            
-#             # Clear the input area after submission
-#             st.experimental_set_query_params()
-
-#         else:
-#             st.warning("Please fill in your name, email, and query.")
-
-#     # Display chat history
-#     st.subheader("Chat Interface")
-#     for chat in st.session_state["chat_history"]:
-#         st.markdown(f"**You:** {chat['user']}")
-#         st.markdown(f"**Assistant:** {chat['bot']}")
-
-#     # Reset Button
-#     if st.button("Reset Chat"):
-#         st.session_state["chat_history"] = []
-#         st.session_state.clear()
-
-
-
-
-# 3
-# Streamlit UI
+2
 def create_chatbot_interface():
     # Page setup
     st.set_page_config(page_title="Aibytec Assistant", layout="wide")
@@ -255,8 +207,24 @@ def create_chatbot_interface():
     # Chat history initialization
     if "chat_history" not in st.session_state:
         st.session_state["chat_history"] = []
-    if "user_query" not in st.session_state:
-        st.session_state["user_query"] = ""
+
+    # User input
+    user_query = st.text_area("Type your question below", placeholder="Ask your question...")
+
+    # Submit Button
+    if st.button("Submit"):
+        if user_name and user_email and user_query:
+            # Get chatbot response
+            bot_response = chatbot_ui(user_query, user_name, user_email)
+            
+            # Update chat history in session state
+            st.session_state["chat_history"].append({"user": user_query, "bot": bot_response})
+            
+            # Clear the input area after submission
+            st.experimental_set_query_params()
+
+        else:
+            st.warning("Please fill in your name, email, and query.")
 
     # Display chat history
     st.subheader("Chat Interface")
@@ -264,31 +232,10 @@ def create_chatbot_interface():
         st.markdown(f"**You:** {chat['user']}")
         st.markdown(f"**Assistant:** {chat['bot']}")
 
-    # User input
-    st.session_state["user_query"] = st.text_area(
-        "Type your question below", 
-        placeholder="Ask your question...", 
-        value=st.session_state["user_query"]
-    )
-
-    # Submit Button
-    if st.button("Submit"):
-        if user_name and user_email and st.session_state["user_query"]:
-            bot_response = chatbot_ui(st.session_state["user_query"], user_name, user_email)
-            st.session_state["chat_history"].append({
-                "user": st.session_state["user_query"], 
-                "bot": bot_response
-            })
-            st.session_state["user_query"] = ""  # Clear the input box after submission
-        else:
-            st.warning("Please fill in your name, email, and query.")
-
     # Reset Button
     if st.button("Reset Chat"):
         st.session_state["chat_history"] = []
-        st.session_state["user_query"] = ""
-        st.experimental_rerun()  # Rerun the app to refresh the state
-
+        st.session_state.clear()
 
 
 
