@@ -39,7 +39,7 @@ def extract_text_from_pdf(pdf_path):
         return ""
 
 # Combine the website text and PDF text
-pdf_text = extract_text_from_pdf("/Aibytec fine tuned data.pdf")
+pdf_text = extract_text_from_pdf("Aibytec fine tuned data.pdf")# pdf_text = extract_text_from_pdf("./Aibytec fine tuned data.pdf")
 combined_context = website_text + "\n\n" + pdf_text  # Combine website and PDF data
 
 # Function to send email notification
@@ -132,42 +132,38 @@ def chatbot_ui(user_input, user_name, user_email):
 #             st.warning("Please provide your name, email, and a question.")
 # Streamlit UI
 def create_chatbot_interface():
-    # Page title and description
+    # Page setup
     st.set_page_config(page_title="Aibytec Assistant", layout="wide")
     st.title("🤖 Aibytec Assistant")
-    st.markdown("Welcome to the Aibytec Assistant! Ask me anything about the Aibytec website or related PDFs.")
+    st.markdown("Ask me anything about Aibytec!")
 
     # Sidebar for user details
-    st.sidebar.header("User Details")
     user_name = st.sidebar.text_input("Your Name", placeholder="Enter your name")
     user_email = st.sidebar.text_input("Your Email", placeholder="Enter your email")
 
-    # Chat history
+    # Chat history initialization
     if "chat_history" not in st.session_state:
         st.session_state["chat_history"] = []
 
+    # Display chat history
     st.subheader("Chat Interface")
-    with st.container():
-        # Display chat history
-        for message in st.session_state["chat_history"]:
-            st.markdown(f"**You:** {message['user']}")
-            st.markdown(f"**Assistant:** {message['bot']}")
+    for chat in st.session_state["chat_history"]:
+        st.markdown(f"**You:** {chat['user']}")
+        st.markdown(f"**Assistant:** {chat['bot']}")
 
-    # User input for chat
-    user_query = st.text_input("Type your question below", placeholder="Enter your question here")
+    # User input
+    user_query = st.text_area("Type your question below", placeholder="Ask your question...")
 
     # Submit Button
     if st.button("Submit"):
         if user_name and user_email and user_query:
-            # Update chat history directly
-            st.session_state["chat_history"].append({
-                "user": user_query,
-                "bot": f"Hello {user_name}, you asked: '{user_query}'. This is a placeholder response."
-            })
+            # Simulate bot response for now
+            bot_response = f"Hello {user_name}, this is a placeholder response to: '{user_query}'"
+            st.session_state["chat_history"].append({"user": user_query, "bot": bot_response})
         else:
-            st.warning("Please fill in all fields (Name, Email, and Question).")
+            st.warning("Please fill in your name, email, and query.")
 
-    # Reset Chat Button
+    # Reset Button
     if st.button("Reset Chat"):
         st.session_state["chat_history"] = []
 
