@@ -42,7 +42,27 @@ def extract_text_from_pdf(pdf_path):
 pdf_text = extract_text_from_pdf("Aibytec fine tuned data.pdf")# pdf_text = extract_text_from_pdf("./Aibytec fine tuned data.pdf")
 combined_context = website_text + "\n\n" + pdf_text  # Combine website and PDF data
 
-# Function to send email notification
+# # Function to send email notification
+# def send_email(name, email):
+#     try:
+#         subject = "New User Data from Aibytec Assistant"
+#         body = f"Name: {name}\nEmail: {email}"
+#         msg = MIMEMultipart()
+#         msg["From"] = gmail_user
+#         msg["To"] = gmail_user
+#         msg["Subject"] = subject
+#         msg.attach(MIMEText(body, "plain"))
+
+#         # Connect to Gmail SMTP server
+#         server = smtplib.SMTP("smtp.gmail.com", 587)
+#         server.starttls()
+#         server.login(gmail_user, gmail_password)
+#         server.send_message(msg)
+#         server.quit()
+
+#         print("Chatbot: User data sent to Gmail successfully!")
+#     except Exception as e:
+#         print(f"Chatbot: Failed to send email. Error: {e}")
 def send_email(name, email):
     try:
         subject = "New User Data from Aibytec Assistant"
@@ -61,8 +81,12 @@ def send_email(name, email):
         server.quit()
 
         print("Chatbot: User data sent to Gmail successfully!")
+    except smtplib.SMTPAuthenticationError as e:
+        print("Chatbot: Authentication failed - check your Gmail credentials.")
+        print(e)
     except Exception as e:
         print(f"Chatbot: Failed to send email. Error: {e}")
+
 
 # Function to generate answers using OpenAI
 def generate_answer(query, context):
