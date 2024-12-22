@@ -1,5 +1,7 @@
+streamlit 
+PyPDF2 
 openai==0.27.8 
-beautifulsoup4 
-requests
-PyMuPDF
-streamlit
+requests 
+langchain
+beautifulsoup4
+python-dotenv
