@@ -617,6 +617,7 @@ elif st.session_state['page'] == 'chat':
 
     user_input = st.chat_input("Type your question here...")
     if user_input:
+        send_whatsapp_message("+14155238886", "Test message from chatbot")
         st.session_state['chat_history'].append({"user": user_input, "bot": ""})
         bot_response = chat_with_ai(user_input, website_text, pdf_text, st.session_state['chat_history'])
         st.session_state['chat_history'][-1]['bot'] = bot_response
