@@ -10,7 +10,6 @@ import os
 from dotenv import load_dotenv
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
-import json
 
 # ----------------------
 # Load Environment Variables
@@ -178,7 +177,7 @@ elif st.session_state['page'] == 'chat':
         st.rerun()
 
 # ----------------------
-# Webhook Handler (No Flask Required)
+# Webhook Handler (Updated to Use st.query_params)
 # ----------------------
 def handle_whatsapp_webhook():
     """Handles incoming WhatsApp webhook requests"""
@@ -204,5 +203,5 @@ def handle_whatsapp_webhook():
     return str(twilio_response)
 
 # Add an endpoint in the Streamlit app
-if 'whatsapp' in st.experimental_get_query_params():
+if 'whatsapp' in st.query_params:
     st.write(handle_whatsapp_webhook())
