@@ -226,8 +226,8 @@ SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
 openai.api_key = os.getenv("OPENAI_API_KEY")
-PDF_PATH = os.getenv("PDF_PATH")
-WEBSITE_URL = os.getenv("WEBSITE_URL")
+PDF_PATH = "./Aibytec fine tuned data.pdf"
+WEBSITE_URL = "https://www.aibytec.com/"
 
 # ----------------------
 # Functions
