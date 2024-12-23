@@ -107,8 +107,7 @@ def send_whatsapp_message(to_number, message_body):
         message = twilio_client.messages.create(
             from_=f"whatsapp:{TWILIO_WHATSAPP_NUMBER}",
             body=message_body,
-            to_number = +923030648610
-            to=f"whatsapp:{to_number}"
+            to=f"whatsapp:{+923030648610}"
         )
         print(f"Message sent with SID: {message.sid}")
     except Exception as e:
