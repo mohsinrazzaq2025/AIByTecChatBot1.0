@@ -136,7 +136,7 @@ if st.session_state['page'] == 'form':
         contact_no = st.text_input("Contact No.")
         area_of_interest = st.text_input("Area of Interest")
         
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns(1)
         with col1:
             submitted = st.form_submit_button("Proceed to Chat")
         with col2:
